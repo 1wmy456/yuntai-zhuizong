@@ -1,4 +1,4 @@
-param([ValidateSet('speed150','speed100')][string]$Profile='speed150',[switch]$WideExperiment,[switch]$EnableAuto,
+param([ValidateSet('speed300')][string]$Profile='speed300',[switch]$WideExperiment=$true,[switch]$EnableAuto,
  [string]$Xsct='C:/Xilinxx/Vitis/2020.2/bin/xsct.bat')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
@@ -13,8 +13,8 @@ $params=@{Workspace='build/runtime_platform';Xsct=$Xsct}
 $hw=Join-Path $root build/runtime_platform/board_platform/ps7_cortexa9_0/standalone_domain/bsp/ps7_cortexa9_0/include
 New-Item -ItemType Directory -Force $hw | Out-Null
 Copy-Item -LiteralPath "$bsp/include/xparameters.h" -Destination "$hw/xparameters.h" -Force
-if($Profile -eq 'speed150'){$params.Faster=$true}else{$params.Responsive=$true}
+
 if($WideExperiment){$params.WideExperiment=$true}
 if($EnableAuto){$params.EnableAuto=$true}
-& "$PSScriptRoot/restore_touch_tracking.ps1" @params
+& "$PSScriptRoot/restore_speed300.ps1" @params
 if($LASTEXITCODE){throw 'Runtime settings failed'}

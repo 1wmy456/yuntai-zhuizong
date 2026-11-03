@@ -1,0 +1,12 @@
+APPEARANCE available=1 active=1 state=LOST valid=0 reason=2 frame=7238 generation=6 similarity=3214/4096 phase=1 raw_frames=1162 errors=1 accept=6 reject=1 process_us=49126 cpu_us=17157 dma_us=30599 dma=00000000 model=29,0,-2 radius=32 ref_area=5040
+
+CAP_LAT scope=request_to_recognition sample_window=128 total_p50_us=49105 total_p95_us=49200 dma_p50_us=30556 dma_p95_us=31087 cpu_p50_us=17191 cpu_p95_us=17263 downsample=central2x2 dma_bytes=1536000
+
+BOX_SHAPE raw=68,64 display=68,64 size_stabilized=1 center_unfiltered=1
+
+MOTION smooth=1 deadband=15/22 accel=800,800 decel=1200,1200 us/s2; gain_milli=2000,2000 rate=300,300 us/s
+mode=auto frame=7238 valid=0 err=0 age=57600 bbox=436,503,192,255 ex=69 ey=-17 yaw=1109 pitch=1275 en=3 hold=3 limit=0 det=touch drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd
+mode=auto frame=7247 valid=0 err=0 age=79059 bbox=436,503,192,255 ex=69 ey=-17 yaw=1109 pitch=1275 en=3 hold=3 limit=0 det=touch drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd
+mode=auto frame=7267 valid=0 err=0 age=79821 bbox=436,503,192,255 ex=69 ey=-17 yaw=1109 pitch=1275 en=3 hold=3 limit=0 det=touch drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd
+mode=auto frame=7287 valid=0 err=0 age=62716 bbox=436,503,192,255 ex=69 ey=-17 yaw=1109 pitch=1275 en=3 hold=3 limit=0 det=touch drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd
+mode=auto frame=7307 valid=0 err=0 age=63981 bbox=436,503,192,255 ex=69 ey=-17 yaw=1109 pitch=1275 en=3 hold=3 limit=0 det=touch drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd

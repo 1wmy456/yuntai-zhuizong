@@ -1,4 +1,4 @@
-// 串口与图像任务非阻塞，输出轨迹按 20 ms 服务。
+// 串口和视觉任务协作运行，控制按20ms节拍更新。
 #include "pan_tilt_app.h"
 #include "pan_tilt_driver.h"
 #include "position_trajectory.h"
@@ -160,7 +160,7 @@ static void command(char *s){
             if(control.controller!=PT_CONTROL_P)pt_control_controller(&control,control.controller);
             log_text("%s gain=%d milli-us/(pixel*s)\r\n",w[1],(int)(v*1000));return;
         }
-        if(!strcmp(w[0],"rate")&&v>0&&v<=150){control.rate[a]=v;log_text("%s rate=%d milli-us/s\r\n",w[1],(int)(v*1000));return;}
+        if(!strcmp(w[0],"rate")&&v>0&&v<=300){control.rate[a]=v;log_text("%s rate=%d milli-us/s\r\n",w[1],(int)(v*1000));return;}
         if(!strcmp(w[0],"center")&&v>=control.minimum[a]&&v<=control.maximum[a]&&v==(int)v){
             pt_control_manual(&control);control.center[a]=(int)v;control.verified[a]=0;pt_reg_write(pt_base,a?PT_PITCH_CENTER:PT_YAW_CENTER,(u32)v);log_text("%s center configured; use center to move\r\n",w[1]);return;}
     }
@@ -241,6 +241,7 @@ void pan_tilt_run(unsigned width,unsigned height,int camera_ok){
                     pt_trajectory_limits(&trajectory,control.rate,control.acceleration,control.deceleration,control.minimum,control.maximum);
                     pt_trajectory_plan(&trajectory,control.position,target.frame_id,now);trajectory_active=1;
                 }else if(control.hold_reason||!control.tracking){
+
 
                     if(trajectory_active){sync_actual_position();pt_driver_commit(pt_base,&control);}
                 }else{

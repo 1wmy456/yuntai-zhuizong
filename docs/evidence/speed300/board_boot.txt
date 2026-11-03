@@ -1,0 +1,13 @@
+0,0 active=0,0 ctrl=pd
+mode=auto frame=0 valid=0 err=0 age=60119124 bbox=0,0,0,0 ex=-400 ey=-240 yaw=1457 pAPPEARANCE available=1 active=0 state=SELECT valid=0 reason=0 frame=0 generation=0 similarity=0/4096 phase=0 raw_frames=0 errors=0 accept=0 reject=0 process_us=0 cpu_us=0 dma_us=0 dma=00000000 model=0,0,0 radius=0 ref_area=0
+
+CAP_LAT scope=request_to_recognition sample_window=0 total_p50_us=0 total_p95_us=0 dma_p50_us=0 dma_p95_us=0 cpu_p50_us=0 cpu_p95_us=0 downsample=central2x2 dma_bytes=1536000
+
+BOX_SHAPE raw=1,1 display=1,1 size_stabilized=1 center_unfiltered=1
+
+itch=1641 en=3 hold=3 limit=0 det=select drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd
+MOTION smooth=1 deadband=15/22 accel=800,800 decel=1200,1200 us/s2; gain_milli=2000,2000 rate=300,300 us/s
+mode=auto frame=0 valid=0 err=0 age=60616186 bbox=0,0,0,0 ex=-400 ey=-240 yaw=1457 pitch=1641 en=3 hold=3 limit=0 det=select drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd
+mode=auto frame=0 valid=0 err=0 age=61116193 bbox=0,0,0,0 ex=-400 ey=-240 yaw=1457 pitch=1641 en=3 hold=3 limit=0 det=select drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd
+mode=auto frame=0 valid=0 err=0 age=61616200 bbox=0,0,0,0 ex=-400 ey=-240 yaw=1457 pitch=1641 en=3 hold=3 limit=0 det=select drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd
+mode=auto frame=0 valid=0 err=0 age=62116212 bbox=0,0,0,0 ex=-400 ey=-240 yaw=1457 pitch=1641 en=3 hold=3 limit=0 det=select drop=0 smooth=1 db=15/22 vel_milli=0,0 active=0,0 ctrl=pd

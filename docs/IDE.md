@@ -8,7 +8,7 @@
 
 ## Vitis
 
-1. 用`release/speed150/system_wrapper.xsa`创建平台，处理器选择`ps7_cortexa9_0`，系统选择standalone。
+1. 用`release/speed300/system_wrapper.xsa`创建平台，处理器选择`ps7_cortexa9_0`，系统选择standalone。
 2. 创建空C应用，导入`vitis/ov5640_lcd/src`的全部文件和子目录。
 3. 使用随源码的`lscript.ld`及`Xilinx.spec`。算法目录的C文件必须全部参与编译；`appearance_tracker.c`、`appearance_runtime.c`、`cap_components.c`、`cap_runtime.c`使用O2，其余可使用O0。
 4. 核对程序末地址低于`0x01100000`，使用同一平台的BSP及PS初始化文件。

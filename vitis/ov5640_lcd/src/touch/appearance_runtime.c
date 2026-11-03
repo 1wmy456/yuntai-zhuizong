@@ -1,4 +1,4 @@
-// DMA 写入期间不读图像；校验完整帧后再降采样。
+// 完整帧校验后缩图，每个4×4块取中央四点均值。
 #include "appearance_runtime.h"
 #include "appearance_tracker.h"
 #include "touch_driver.h"
@@ -20,6 +20,20 @@ static unsigned blue_fallback;
 static unsigned selecting,switched,errors,rejections,accepted,frames,processing_us,last_status,raw_rows,cpu_us,dma_us;
 static uint32_t source_error,last_frame;static uint64_t deadline,issued,published,next_capture,clicked,cpu_started;
 static UINTPTR base;
+
+enum { LATENCY_WINDOW=128 };
+static unsigned latency_total[LATENCY_WINDOW],latency_dma[LATENCY_WINDOW],latency_cpu[LATENCY_WINDOW],latency_count,latency_next;
+static void latency_add(unsigned total,unsigned dma,unsigned cpu){
+ latency_total[latency_next]=total;latency_dma[latency_next]=dma;latency_cpu[latency_next]=cpu;
+ latency_next=(latency_next+1)%LATENCY_WINDOW;if(latency_count<LATENCY_WINDOW)latency_count++;
+}
+static unsigned latency_percentile(const unsigned *samples,unsigned percentile){
+ unsigned sorted[LATENCY_WINDOW],i,j,v,index;
+ if(!latency_count)return 0;
+ for(i=0;i<latency_count;i++){v=samples[i];j=i;while(j&&sorted[j-1]>v){sorted[j]=sorted[j-1];j--;}sorted[j]=v;}
+ index=(latency_count*percentile+99)/100;if(index)index--;return sorted[index];
+}
+
 static uint64_t ticks_us(void){XTime t;XTime_GetTime(&t);return t/COUNTS_PER_SECOND*1000000ull+t%COUNTS_PER_SECOND*1000000ull/COUNTS_PER_SECOND;}
 static void wr(unsigned reg,uint32_t value){Xil_Out32(XPAR_RAW_CAPTURE_DMA_BASEADDR+reg,value);dmb();}
 static uint32_t rd(unsigned reg){return Xil_In32(XPAR_RAW_CAPTURE_DMA_BASEADDR+reg);}
@@ -37,7 +51,7 @@ static void touch(unsigned event,unsigned x,unsigned y,uint64_t now){
  if(event==TOUCH_CANCEL){down=pending=0;click_token++;}
 }
 int appearance_runtime_init(UINTPTR b,uint64_t now){
- appearance_init(&tracker);box_shape_init(&shape);base=b;available=1;blue_fallback=0;active=phase=down=pending=0;last_frame=0;
+ latency_count=latency_next=0;appearance_init(&tracker);box_shape_init(&shape);base=b;available=1;blue_fallback=0;active=phase=down=pending=0;last_frame=0;
  touch_capture_control(2);wr(DMA_CR,4);phase=4;deadline=now;touch_set_handler(touch);
  printf("TOUCH_CAPTURE ready DMA=%08lx buffer=%08lx bytes=%u; tap to select, vision blue fallback; raw buffer ownership single-shot\r\n",(unsigned long)XPAR_RAW_CAPTURE_DMA_BASEADDR,(unsigned long)(UINTPTR)raw,FRAME_BYTES);return 1;
 }
@@ -87,8 +101,8 @@ void appearance_runtime_service(UINTPTR b,uint64_t now){
   unsigned end=raw_rows+8;if(end>CAP_MASK_HEIGHT)end=CAP_MASK_HEIGHT;
   for(y=raw_rows;y<end;y++)for(x=0;x<CAP_MASK_WIDTH;x++){
    unsigned r=0,g=0,bb=0;
-   for(dy=0;dy<4;dy++)for(dx=0;dx<4;dx++){uint32_t p=raw[(y*4+dy)*800+x*4+dx];r+=(p>>16)&255;g+=(p>>8)&255;bb+=p&255;}
-   small[y*CAP_MASK_WIDTH+x]=((r/16)<<16)|((g/16)<<8)|(bb/16);
+   for(dy=1;dy<=2;dy++)for(dx=1;dx<=2;dx++){uint32_t p=raw[(y*4+dy)*800+x*4+dx];r+=(p>>16)&255;g+=(p>>8)&255;bb+=p&255;}
+   small[y*CAP_MASK_WIDTH+x]=((r/4)<<16)|((g/4)<<8)|(bb/4);
   }
   raw_rows=end;
   if(raw_rows==CAP_MASK_HEIGHT){appearance_begin(&work,&tracker,small,last_frame,selecting,click_x,click_y);phase=3;}
@@ -98,6 +112,7 @@ void appearance_runtime_service(UINTPTR b,uint64_t now){
   if(request_token!=click_token||down){phase=0;next_capture=now+1000;return;}
   if(!appearance_work(&work,1000))return;
   processing_us=(unsigned)(ticks_us()-issued);cpu_us=(unsigned)(ticks_us()-cpu_started);
+  latency_add(processing_us,dma_us,cpu_us);
   if(selecting){
    pending=0;
    if(work.selection_accepted){active=1;switched=1;accepted++;pt_reg_write(b,0xd0,0);}
@@ -121,6 +136,7 @@ void appearance_runtime_target(uint64_t now,PtTarget *out){
 void appearance_runtime_status(void){
  uint64_t now=ticks_us();unsigned valid=available&&tracker.valid&&!down&&!pending&&now-published<=250000;
  printf("APPEARANCE available=%u active=%u state=%s valid=%u reason=%u frame=%lu generation=%u similarity=%u/4096 phase=%u raw_frames=%u errors=%u accept=%u reject=%u process_us=%u cpu_us=%u dma_us=%u dma=%08x model=%d,%d,%d radius=%u ref_area=%lu\r\n",available,active,!active||down||pending?"SELECT":valid?"TRACK":"LOST",valid,tracker.reason,(unsigned long)tracker.frame_id,tracker.generation,tracker.similarity,phase,frames,errors,accepted,rejections,processing_us,cpu_us,dma_us,last_status,tracker.color.y,tracker.color.cb,tracker.color.cr,tracker.chroma_radius,(unsigned long)tracker.reference_box.area);
+ printf("CAP_LAT scope=request_to_recognition sample_window=%u total_p50_us=%u total_p95_us=%u dma_p50_us=%u dma_p95_us=%u cpu_p50_us=%u cpu_p95_us=%u downsample=central2x2 dma_bytes=%u\r\n",latency_count,latency_percentile(latency_total,50),latency_percentile(latency_total,95),latency_percentile(latency_dma,50),latency_percentile(latency_dma,95),latency_percentile(latency_cpu,50),latency_percentile(latency_cpu,95),FRAME_BYTES);
  printf("BOX_SHAPE raw=%u,%u display=%u,%u size_stabilized=1 center_unfiltered=1\r\n",tracker.box.xmax-tracker.box.xmin+1,tracker.box.ymax-tracker.box.ymin+1,display_box.xmax-display_box.xmin+1,display_box.ymax-display_box.ymin+1);
 }
 #else

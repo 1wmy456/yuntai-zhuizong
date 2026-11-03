@@ -1,108 +1,79 @@
 # 云台追踪
 
-基于 Zynq-7020、OV5640、800×480 触摸 LCD 和双 MG90S 的视觉云台。点击屏幕选择目标，系统在板上完成外观建模、定位、画框和双轴跟随。
+基于 Zynq-7020、OV5640、800×480 触摸 LCD 和双 MG90S 的视觉追踪系统。点击屏幕选择目标，完成外观建模、实时画框和双轴跟随。
 
-## 功能
+本仓库默认发布 **300档优化版**，仅提供一套固件。旧版不在发布目录中保留，可通过 Git 标签 `v1.0-touch150` 获取。
 
-- GT1158 触摸读取、坐标映射和位置十字。
-- 点击建立目标模型；蓝、红、黑瓶盖已进行现场测试。
-- 三色同时入镜时点击切换目标；空白点击保留有效目标。
-- 目标丢失清框并保持，不自动接管其他目标。
-- 150μs/s 脉宽变化率、加减速约束与死区滞回。
-- P/PD/PID 控制框架；触摸配置使用 Kp=2、Ki=Kd=0。
+## 功能与参数
 
-白色复杂背景和黄色目标测试未通过；算法依据外观和区域形状，不提供通用瓶盖语义识别。
+- GT1158 触摸定位，点击切换目标，背景点击保护。
+- 连通区域、形状与外观匹配；失目标清框并保持位置，不自动追其他目标。
+- 两轴速度上限300μs/s，加速度800μs/s²，减速度1200μs/s²，死区15/22像素。
+- 控制框架支持P/PD/PID；发布配置Kp=2，Ki=Kd=0。
+- 800×480完整RGB帧经DMA到PS，每个4×4块取中央四点均值生成200×120图像。
+- `appearance` 命令输出最近128次请求到识别的P50/P95耗时。
 
-## 目录
+蓝、红、黑瓶盖已进行触摸选择测试；300档优化版已确认绿框稳定、跟随与停稳正常。复杂背景下的白色、低对比和相似目标仍有限制。本版没有PL图像裁剪、YOLO或神经网络推理。
 
-|目录|内容|
-|---|---|
-|`rtl/`|视频、原始帧、触摸叠加及 PWM RTL|
-|`vitis/ov5640_lcd/src/`|实际参与编译的17个C文件及头文件|
-|`ov5640_lcd.srcs/`、`ip_repo/`|基础BD、XDC和自定义视频IP|
-|`constraints/`|PWM和触摸接口约束|
-|`hardware/`|已集成触摸与双轴控制的可打开Vivado工程|
-|`sim/`|RTL自检与主机C测试|
-|`scripts/`|集成、编译、测试、下载及参数恢复|
-|`release/`|可直接下载的 bit、XSA、PS初始化及ELF|
-|`platform/`|匹配XSA的standalone BSP归档|
-|`docs/`|接线、测试、构建和发布说明|
+## 下载与运行
 
-## 下载程序
-
-Windows PowerShell，Vivado/Vitis 2020.2，开发板上电并连接JTAG。工具默认目录为 `C:/Xilinxx/`，可通过脚本参数调整。
+Vivado/Vitis 2020.2，工具默认安装在 `C:/Xilinxx/`。开发板上电并连接JTAG：
 
 ```powershell
 cd D:\2026.test\kaoshi
 .\烧录.ps1
-.\scripts\restore.ps1 -Profile speed150
+.\scripts\restore.ps1 -EnableAuto
 ```
 
-启动为手动、PWM关闭。确认LCD画面正常，点击瓶盖出现绿框后，在115200/8N1串口以ASCII逐行发送，末尾加CR/LF：
+下载后初始为手动、PWM关闭；第二条命令恢复300档配置并启用自动。随后点击瓶盖开始跟随。恢复脚本默认两轴500～2500μs宽范围实验限幅，此范围不代表完整机械行程已标定。使用已标定窄范围可加 `-WideExperiment:$false`。
+
+只恢复参数、暂不使能舵机：
+
+```powershell
+.\scripts\restore.ps1
+```
+
+115200/8N1串口使用ASCII，命令末尾加换行：
 
 ```text
 enable both
 verify yaw
 verify pitch
 auto
+appearance
+motion
+status
 ```
 
-`manual`保持位置，`disable`关闭PWM。普通恢复范围为yaw 1100～1650μs、pitch 1240～1800μs。需要沿用现场宽范围实验时执行：
+`manual`保持位置，`disable`关闭PWM。目标丢失后保持，重新点击可以选择目标。JTAG下载不写Flash，断电后需重新下载。
 
-```powershell
-.\scripts\restore.ps1 -Profile speed150 -WideExperiment
-```
-
-500～2500μs是实验设置，不是完整机械行程标定。恢复脚本不自动回中，只有增加 `-EnableAuto` 才自动使能。JTAG下载不写Flash，重新上电需要重新下载和选择目标。
-
-只检查文件、不操作板卡：
+## 构建与测试
 
 ```powershell
 .\烧录.ps1 -CheckOnly
-```
-
-## 重新编译
-
-只编译裸机应用，使用随包BSP：
-
-```powershell
+.\scripts\test_speed300_cpu_opt.ps1
 .\scripts\build_release.ps1 -Output build/app_new
 ```
 
-完整生成硬件及新BSP，输出目录必须不存在：
+完整重建硬件和BSP：
 
 ```powershell
 .\scripts\build_touch_tracking.ps1 -Project build/hardware_new -Workspace build/software_new
 ```
 
-Vivado界面可直接打开 `hardware/ov5640_lcd.xpr`。根目录XPR是集成脚本使用的视频基础工程。
+Vivado可打开 `hardware/ov5640_lcd.xpr`。根目录XPR供集成脚本使用。实际C构建输入为 `vitis/ov5640_lcd/src`；`release/speed300` 是已归档固件。修改源码后要重新编译并选择新ELF，直接执行烧录入口仍下载归档版本。
 
-新应用不会自动覆盖发布文件。完整构建产物可用通用入口下载：
+## 项目文件
 
-```powershell
-.\scripts\download_pan_tilt.ps1 -Project build/hardware_new -Workspace build/software_new -Application app_compiled
-```
+|目录|内容|
+|---|---|
+|`rtl/`、`hardware/`、`ip_repo/`|RTL、集成工程与IP|
+|`constraints/`|触摸和PWM约束|
+|`vitis/ov5640_lcd/src/`|裸机控制与跟踪源码|
+|`sim/`、`scripts/`|测试、构建、下载与参数恢复|
+|`release/speed300/`、`platform/`|配套BIT、XSA、ELF、PS初始化与BSP|
+|`docs/evidence/speed300/`|实板日志、回归及程序段一致性证据|
 
-修改源码后仅运行 `烧录.ps1` 仍下载已归档的发布文件；要测试改动，应先编译并明确选择对应ELF。
+实板统计：请求到识别P50约49.1ms，P95约49.2ms；不是曝光到舵机运动的端到端延迟，也没有同场景基线来计算加速比。完整帧仍传输1.536MB，四点缩图并未减少DMA数据量。
 
-## 测试与回退
-
-```powershell
-.\scripts\test_appearance.ps1
-.\scripts\test_pid_control.ps1
-.\scripts\test_touch.ps1
-.\scripts\test_raw_capture.ps1
-.\scripts\sim_component_tracker.ps1
-```
-
-100档及视觉PD版本：
-
-```powershell
-.\烧录.ps1 -Profile speed100
-.\scripts\restore.ps1 -Profile speed100
-.\烧录.ps1 -Profile lost
-```
-
-`lost`的运行参数见 `docs/RELEASE.md`，不要对该固件使用触摸参数恢复命令。
-
-源工程基线为 `ov5640-lcd-analysis` 的 `touch-speed150-validated`，提交 `0d6e2f6`。本仓库为独立整理版，注释精简并补充必要中文说明；第三方声明集中在 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。发布清单记录SHA256，生成目录、个人照片及Word报告不随源码上传。
+接线见 [WIRING.md](docs/WIRING.md)，固件证据见 [RELEASE.md](docs/RELEASE.md)。第三方声明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。个人照片、原始采集图像和Word报告不随源码上传。

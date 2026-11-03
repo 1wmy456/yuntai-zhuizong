@@ -1,3 +1,4 @@
+/* Include the runtime so the emulated DMA can fill its private buffer; production API stays private. */
 #include "../../vitis/ov5640_lcd/src/touch/appearance_runtime.c"
 #include <stdlib.h>
 static uint32_t dma[64],regs[1024];static uint64_t clock_us;static unsigned arms,aborts,flushes,invalidates,commits,checks,servo_writes;static TouchHandler callback;
@@ -24,6 +25,19 @@ static void complete(unsigned id,int object){
 static void finish_processing(void){unsigned n=0;while(phase==2||phase==3){service(clock_us+100);CHECK(++n<1000);}}
 static void request_next(void){service(clock_us+2000);CHECK(phase==1);}
 int main(void){
+
+ latency_count=latency_next=0;
+ latency_add(100,40,60);latency_add(200,90,110);latency_add(300,140,160);
+ CHECK(latency_percentile(latency_total,50)==200&&latency_percentile(latency_total,95)==300);
+ for(unsigned i=0;i<140;i++)latency_add(1000+i,0,0);
+ CHECK(latency_count==128&&latency_percentile(latency_total,95)==1133);
+ CHECK(appearance_runtime_init(0,0));service(1);
+ for(unsigned i=0;i<800*480;i++)raw[i]=0xc8c8c8;
+ raw[1*800+1]=0x102030;raw[1*800+2]=0x203040;
+ raw[2*800+1]=0x304050;raw[2*800+2]=0x405060;
+ phase=2;raw_rows=0;request_token=click_token;selecting=0;
+ for(unsigned i=0;i<15;i++)service(i+2);
+ CHECK(phase==3&&small[0]==0x283848&&small[1]==0xc8c8c8);
  PtTarget out;CHECK(appearance_runtime_init(0,0));service(1);CHECK(phase==0&&callback);
  CHECK(appearance_runtime_enabled()&&!appearance_runtime_active());
  appearance_runtime_target(1,&out);CHECK(!(out.flags&1));
@@ -33,7 +47,7 @@ int main(void){
  CHECK(active&&tracker.valid&&tracker.generation==1&&accepted==1);CHECK(appearance_runtime_switched());CHECK(!appearance_runtime_switched());
  appearance_runtime_target(clock_us,&out);CHECK(out.flags==5&&out.frame_id==11);CHECK(!servo_writes);
  unsigned gen=tracker.generation;CapBox old=tracker.box;
-
+ /* Overlay sizes are stabilized; controller still receives the raw current box. */
  for(unsigned i=0;i<20;i++){
   tracker.frame_id=100+i;tracker.box=old;
   tracker.box.xmax=old.xmin+(i%2?67:91);tracker.box.ymax=old.ymin+(i%2?63:47);
