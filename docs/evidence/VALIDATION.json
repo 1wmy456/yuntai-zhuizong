@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-03",
+  "source_tag": "touch-speed150-validated",
+  "software_compile": {
+    "C_files": 17,
+    "text": 170464,
+    "data": 2857,
+    "bss": 1918480,
+    "end": "0x00300650"
+  },
+  "program_sections_equal": [
+    ".text",
+    ".rodata",
+    ".data",
+    ".vectors"
+  ],
+  "tests": {
+    "appearance": 78241,
+    "appearance_runtime": 387,
+    "touch_pd": 14,
+    "box_shape": 809,
+    "trajectory": 1910,
+    "visual_pid": 115169,
+    "touch_events": 768019,
+    "touch_cross": 4130,
+    "touch_status": 3351,
+    "raw_capture": 653,
+    "raw_feedback": 59,
+    "blue_video": "5 x 115886",
+    "ip_color": 2449
+  },
+  "independent_hardware_build": {
+    "passed": true,
+    "WNS_ns": 0.319,
+    "WHS_ns": 0.062,
+    "TNS_ns": 0,
+    "THS_ns": 0,
+    "bit_and_xsa_generated": true
+  },
+  "audits": [
+    "BD Validate Design",
+    "PWM U5/T5 and bank",
+    "touch R19/P20/M19/U19",
+    "BSP address allocation",
+    "native video CDC",
+    "raw result provenance",
+    "portable hardware project"
+  ],
+  "download_check": {
+    "speed150": true,
+    "speed100": true,
+    "lost": true,
+    "performed_physical_download": false
+  },
+  "published_hardware": "accepted touch_capture_v3 bit/XSA retained; independent rebuild reports stored separately"
+}

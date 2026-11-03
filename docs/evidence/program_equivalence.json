@@ -1,0 +1,12 @@
+{
+  "accepted_elf_sha256": "b1febf2450b08584947de92b8183e9c2282b628af39ecf0fdf64cb241d47c018",
+  "clean_elf_sha256": "2b9583dd5db32b940af27dd02408f3e467f62f4e748278a725a89cdde377aba0",
+  "identical_sections": {
+    "text": "a6a1a28928a54af139a81c10f5692d7f7383de8b3171215b4d7d67d9bc2bfffb",
+    "rodata": "32ab24ad70b99bde91410707ea35d4766c27a455a58d48e058e5bafe1e44fef4",
+    "data": "91aa80dbe5e46189c9a910ab09a9ed7e3c122d9411ce82dc7ae7574eb45f9159",
+    "vectors": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "compiled_sources": 17,
+  "end_address": "0x00300650"
+}

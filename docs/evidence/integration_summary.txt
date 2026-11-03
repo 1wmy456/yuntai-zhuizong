@@ -1,0 +1,4 @@
+PASS: isolated BD integration and validation: D:/2026.test/kaoshi/build/packaging_check
+PAN_INTEGRATION: PASS D:/2026.test/kaoshi/build/packaging_check
+TOUCH_INTEGRATION: PASS D:/2026.test/kaoshi/build/packaging_check
+TOUCH_CAPTURE_INTEGRATION: PASS D:/2026.test/kaoshi/build/packaging_check

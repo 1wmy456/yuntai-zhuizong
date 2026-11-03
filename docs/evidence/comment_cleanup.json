@@ -1,0 +1,476 @@
+[
+  {
+    "file": "ip_repo/ov5640_capture_data/src/ov5640_capture_data.v",
+    "removed_comments": 49,
+    "encoding": "gb18030",
+    "code_unchanged": true
+  },
+  {
+    "file": "ip_repo/rgb2lcd/ip/src/rgb2lcd.v",
+    "removed_comments": 34,
+    "encoding": "gb18030",
+    "code_unchanged": true
+  },
+  {
+    "file": "ov5640_lcd.srcs/sources_1/imports/system_wrapper.v",
+    "removed_comments": 9,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/blue_tracker/axis_blue_tracker.v",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/blue_tracker/blue_bbox_stats.v",
+    "removed_comments": 11,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/blue_tracker/blue_frame_stats.v",
+    "removed_comments": 2,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/blue_tracker/blue_mask_sampler.v",
+    "removed_comments": 4,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/blue_tracker/blue_pixel_detect.v",
+    "removed_comments": 2,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/blue_tracker/video_box_overlay.v",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/pan_tilt/blue_mask_store.v",
+    "removed_comments": 5,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/pan_tilt/dual_servo_pwm.v",
+    "removed_comments": 2,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/pan_tilt/pan_tilt_ctrl.v",
+    "removed_comments": 5,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/pan_tilt/pwm_wave_monitor.v",
+    "removed_comments": 2,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/touch/axis_raw_capture.v",
+    "removed_comments": 2,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "rtl/touch/axis_touch_cross.v",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/blue_tracker/tb_axis_blue_tracker.sv",
+    "removed_comments": 6,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/blue_tracker/tb_video_in_color_order.sv",
+    "removed_comments": 2,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/pan_tilt/host_include/xil_types.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/pan_tilt/tb_component_video.sv",
+    "removed_comments": 7,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/pan_tilt/tb_mask_words.sv",
+    "removed_comments": 2,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/pan_tilt/tb_pan_tilt.sv",
+    "removed_comments": 9,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/pan_tilt/test_cap_components.c",
+    "removed_comments": 6,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/pan_tilt/test_cap_runtime.c",
+    "removed_comments": 4,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/pan_tilt/test_pid_control.c",
+    "removed_comments": 11,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/pan_tilt/test_smooth_control.c",
+    "removed_comments": 8,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/pan_tilt/test_tracking_control.c",
+    "removed_comments": 8,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/host_include/xil_cache.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/host_include/xil_io.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/host_include/xparameters.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/host_include/xtime_l.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/replay_appearance.c",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/tb_raw_capture.sv",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/tb_touch_cross.sv",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/tb_touch_feedback.sv",
+    "removed_comments": 4,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/tb_touch_status.sv",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/test_appearance.c",
+    "removed_comments": 3,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/test_appearance_runtime.c",
+    "removed_comments": 2,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/test_box_shape.c",
+    "removed_comments": 2,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/test_capture_stability.c",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/test_position_trajectory.c",
+    "removed_comments": 4,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/test_target_removal_pair.c",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/test_touch_events.c",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sim/touch/test_touch_pd.c",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sw_repo/drivers/pan_tilt_ctrl_v1_0/src/pan_tilt_bsp.c",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "sw_repo/drivers/pan_tilt_ctrl_v1_0/src/pan_tilt_bsp.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/clk_wiz/clk_wiz.c",
+    "removed_comments": 34,
+    "encoding": "gb18030",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/clk_wiz/clk_wiz.h",
+    "removed_comments": 5,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/display_ctrl/display_ctrl.c",
+    "removed_comments": 105,
+    "encoding": "gb18030",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/display_ctrl/display_ctrl.h",
+    "removed_comments": 65,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/display_ctrl/lcd_modes.h",
+    "removed_comments": 34,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/emio_sccb_cfg/emio_sccb_cfg.c",
+    "removed_comments": 24,
+    "encoding": "gb18030",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/emio_sccb_cfg/emio_sccb_cfg.h",
+    "removed_comments": 22,
+    "encoding": "gb18030",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/main.c",
+    "removed_comments": 37,
+    "encoding": "gb18030",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/ov5640/ov5640_init.c",
+    "removed_comments": 105,
+    "encoding": "gb18030",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/ov5640/ov5640_init.h",
+    "removed_comments": 22,
+    "encoding": "gb18030",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/cap_components.c",
+    "removed_comments": 4,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/cap_components.h",
+    "removed_comments": 3,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/cap_runtime.c",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/cap_runtime.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/pan_tilt_app.c",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/pan_tilt_app.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/pan_tilt_driver.c",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/pan_tilt_driver.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/position_trajectory.c",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/position_trajectory.h",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/tracking_control.c",
+    "removed_comments": 7,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/pan_tilt/tracking_control.h",
+    "removed_comments": 6,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/appearance_runtime.c",
+    "removed_comments": 3,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/appearance_runtime.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/appearance_tracker.c",
+    "removed_comments": 11,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/appearance_tracker.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/box_shape_filter.c",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/box_shape_filter.h",
+    "removed_comments": 1,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/touch_driver.c",
+    "removed_comments": 3,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/touch_driver.h",
+    "removed_comments": 3,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/touch_events.c",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/touch/touch_events.h",
+    "removed_comments": 0,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/vdma_api/vdma_api.c",
+    "removed_comments": 54,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  },
+  {
+    "file": "vitis/ov5640_lcd/src/vdma_api/vdma_api.h",
+    "removed_comments": 16,
+    "encoding": "utf-8",
+    "code_unchanged": true
+  }
+]

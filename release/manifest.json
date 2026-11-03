@@ -1,0 +1,31 @@
+{
+  "name": "云台追踪",
+  "source_repository": "https://github.com/1wmy456/ov5640-lcd-analysis",
+  "source_commit": "0d6e2f653aaa191cb9e50a1152226158a551389f",
+  "source_tag": "touch-speed150-validated",
+  "default_profile": "speed150",
+  "startup": "manual; PWM disabled",
+  "files": {
+    "release/lost/ov5640_lcd.elf": "35eb5893fee68a984784f9ac8be5b2bbd99357b1eefb893d8f711a503061a1cf",
+    "release/lost/ps7_init.tcl": "7efae1b98d3e106a5b9c24813aec02f40194a5384fa82d2765dbf76c50f6f0ea",
+    "release/lost/release.json": "d07b28d517f393dd8f623a854338a12f37ef880e66dbe4bf8381a4000687f6d3",
+    "release/lost/system_wrapper.bit": "b13090612002ac5f8b7a175564a69a28b30d716584dd40a087c12840acc868a3",
+    "release/lost/system_wrapper.xsa": "119d6fdf1aa3d8f392b669944793d419d09f173d58e530244336e5f2ab66750d",
+    "release/speed100/ov5640_lcd.elf": "d26f3331394f2c533106a28cbd5c16e647b20f247fa041491e1872c36e2e598b",
+    "release/speed100/ov5640_lcd.map": "7d0f0ed7961a021461dfb87b7fe4b881e123362f4987159c1fb724c6fc3e1268",
+    "release/speed100/ps7_init.tcl": "7efae1b98d3e106a5b9c24813aec02f40194a5384fa82d2765dbf76c50f6f0ea",
+    "release/speed100/source_build_manifest.json": "d5d1c8cb1eccf854d56e7924050315a912a8ae1e227fdd0d860b4d99692e214d",
+    "release/speed100/system_wrapper.bit": "688ab472141de3f26a484ed4a3256bae5d92141a39bba25f0d72fce6f9813cee",
+    "release/speed100/system_wrapper.xsa": "3da604888d1162f8f86146b05e2c0849e537fbad9be3079eb333416058f60405",
+    "release/speed150/ov5640_lcd.elf": "2b9583dd5db32b940af27dd02408f3e467f62f4e748278a725a89cdde377aba0",
+    "release/speed150/ov5640_lcd.map": "5edb867af366395d07c0540aa0c21eb944574e5825ead8da9c6146bb210c5fb9",
+    "release/speed150/ps7_init.tcl": "7efae1b98d3e106a5b9c24813aec02f40194a5384fa82d2765dbf76c50f6f0ea",
+    "release/speed150/source_build_manifest.json": "975682cdd0fe0e7133cbd5239d1c6b4f6177343d63fcfac5bab551057e25e6ac",
+    "release/speed150/system_wrapper.bit": "688ab472141de3f26a484ed4a3256bae5d92141a39bba25f0d72fce6f9813cee",
+    "release/speed150/system_wrapper.xsa": "3da604888d1162f8f86146b05e2c0849e537fbad9be3079eb333416058f60405",
+    "platform/ps7_init.tcl": "7efae1b98d3e106a5b9c24813aec02f40194a5384fa82d2765dbf76c50f6f0ea",
+    "platform/standalone_bsp.zip": "346bce4da17b561fb7ac5b1969b6884ea8098f7145a63fd36b8d19a787193caf",
+    "platform/system_wrapper.xsa": "3da604888d1162f8f86146b05e2c0849e537fbad9be3079eb333416058f60405"
+  },
+  "source_cleanup": "comments only; instruction/constant/data/vector sections identical"
+}

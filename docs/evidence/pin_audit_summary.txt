@@ -1,0 +1,2 @@
+TOUCH_AUDIT: PASS pins/address/calibration/native_CDC
+TOUCH_TRACKING_AUDIT: PASS raw DMA/address/clock/frame provenance; calibrated video and pins preserved
