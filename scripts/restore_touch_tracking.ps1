@@ -1,9 +1,20 @@
-param([string]$Workspace='build/touch_capture_v3_sw',[switch]$EnableAuto,[switch]$WideExperiment,[switch]$Conservative,[switch]$Moderate,[switch]$Responsive,[switch]$Faster,
+param([string]$Workspace='build/runtime_platform',[switch]$EnableAuto,[switch]$WideExperiment,[switch]$Conservative,[switch]$Moderate,[switch]$Responsive,[switch]$Faster,
  [string]$Xsct='C:/Xilinxx/Vitis/2020.2/bin/xsct.bat')
 $ErrorActionPreference='Stop'
 if(([int]$Conservative.IsPresent+[int]$Moderate.IsPresent+[int]$Responsive.IsPresent+[int]$Faster.IsPresent) -gt 1){throw 'Choose one motion profile'}
 $repo=Split-Path $PSScriptRoot -Parent
 $header=Join-Path $repo "$Workspace/board_platform/ps7_cortexa9_0/standalone_domain/bsp/ps7_cortexa9_0/include/xparameters.h"
+if(-not(Test-Path -LiteralPath $header) -and $Workspace -eq 'build/runtime_platform'){
+ & python "$PSScriptRoot/verify_release.py"
+ if($LASTEXITCODE){throw 'Release verification failed'}
+ $bsp=Join-Path $repo build/release_bsp
+ if(-not(Test-Path "$bsp/include/xparameters.h")){
+  New-Item -ItemType Directory -Force $bsp | Out-Null
+  Expand-Archive -LiteralPath "$repo/platform/standalone_bsp.zip" -DestinationPath $bsp
+ }
+ New-Item -ItemType Directory -Force (Split-Path $header -Parent) | Out-Null
+ Copy-Item -LiteralPath "$bsp/include/xparameters.h" -Destination $header
+}
 $base=[regex]::Match((Get-Content -Raw $header),'(?m)^#define XPAR_PAN_TILT_CTRL_0_S_AXI_BASEADDR (0x[0-9a-fA-F]+)')
 if(-not $base.Success){throw 'Fresh BSP peripheral macro missing'}
 $commands=@('manual','disable','dir yaw -1','dir pitch 1')
